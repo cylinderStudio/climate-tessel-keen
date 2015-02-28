@@ -3,9 +3,9 @@ var config = require('./credentials/config.js');
 var KEEN_PROJECT_ID = config.keen.project_id;
 var KEEN_WRITE_KEY = config.keen.write_key;
 var WEATHER_APP_KEY = config.weather.app_key;
-var CHECK_TEMPS_INTERVAL = 300000;	// 300000 milliseconds = 5 minutes
+var CHECK_TEMPS_INTERVAL = 300000;								// 300000 milliseconds = 5 minutes
 
-var wifi = require('wifi-cc3000');
+var wifi = require('wifi-cc3000');								// this is one of the built in tessel libs, no need to npm install
 var tessel = require('tessel');
 var climatelib = require('climate-si7020');
 var climate = climatelib.use(tessel.port['A']);
