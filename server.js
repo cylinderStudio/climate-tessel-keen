@@ -10,9 +10,8 @@ var tessel = require('tessel');
 var climatelib = require('climate-si7020');
 var climate = climatelib.use(tessel.port['A']);
 var http = require('http');
-var Keen = require('keen.io');
-var keen_client = Keen.configure({projectId: KEEN_PROJECT_ID, writeKey: KEEN_WRITE_KEY});
-//var keen_client = new Keen({projectId: KEEN_PROJECT_ID, writeKey: KEEN_WRITE_KEY});
+var Keen = require('keen-js');
+var keen_client = new Keen({projectId: KEEN_PROJECT_ID, writeKey: KEEN_WRITE_KEY});
 
 wifi.reset(function() {		
 	// resetting wifi to clear state from any previous operations that didn't finish
@@ -60,8 +59,6 @@ climate.on('ready', function() {
 								if (k_err){
 									console.log('Error posting Keen event:');
 									console.log(k_err)
-								} else {
-									console.log('Keen event posted');
 								}
 							});
 		        });
