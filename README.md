@@ -1,10 +1,16 @@
 climate-tessel-keen
 ===================
 
-NodeJS (Tessel) app that (at timed intervals) will grab local temperature from the microcontroller sensor, pull temperature of provided locale from Weather Underground API, and post data to Keen.io
+NodeJS (Tessel) app that (at timed intervals - I have it set to every 5 minutes in the constants defined up top) will grab local temperature from the microcontroller sensor, pull temperature of provided locale from Weather Underground API, and post data to Keen.io. 
 
 Includes code to prevent wi-fi from choking if Tessel quits in the midst of network operation
 http://start.tessel.io/wifi
+
+You will need to include your own credentials (described below) and change the city and state portions of the locale for which you want to get the local weather in line 47 of server.js (where I currently have ```WA/Seattle.json```:
+
+```
+request.get('http://api.wunderground.com/api/' + WEATHER_APP_KEY + '/conditions/q/WA/Seattle.json', function(error, response, body) {
+```
 
 ### Credentials
 
