@@ -4,15 +4,14 @@
   "description": "climate-tessel-keen ===================",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/cylinderStudio/climate-tessel-keen.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Cylinder Studio",
+  "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/cylinderStudio/climate-tessel-keen/issues"
   },
@@ -20,8 +19,7 @@
   "dependencies": {
     "climate-si7020": "^0.1.1",
     "keen.io": "^0.1.3",
-    "request": "^2.53.0",
-    "tessel": "^0.3.21"
+    "request": "^2.53.0"
   },
   "devDependencies": {}
 }
