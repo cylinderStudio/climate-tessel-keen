@@ -9,7 +9,7 @@ var wifi = require('wifi-cc3000');								// this is one of the built in tessel 
 var tessel = require('tessel');
 var climatelib = require('climate-si7020');
 var climate = climatelib.use(tessel.port['A']);
-var http = require('http');
+var request = require('request');
 var Keen = require('keen-js');
 var keen_client = new Keen({projectId: KEEN_PROJECT_ID, writeKey: KEEN_WRITE_KEY});
 
@@ -43,14 +43,9 @@ climate.on('ready', function() {
 				var outside_temp;
 
 				if (wifi.isConnected()) {
-
-					http.get('http://api.wunderground.com/api/' + WEATHER_APP_KEY + '/conditions/q/WA/Seattle.json', function(response) {
-		        var body = '';
-		        response.on('data', function(d) {
-		        	body += d;
-		        });
-		        response.on('end', function() {
-	            outside_temp = Math.round(JSON.parse(body).current_observation.temp_f);
+					request('http://api.wunderground.com/api/' + WEATHER_APP_KEY + '/conditions/q/WA/Seattle.json', function (error, response, body) {
+					  if (!error && response.statusCode == 200) {
+					    outside_temp = JSON.parse(body).current_observation.temp_f;
 
 							keen_client.addEvents({
 								'outside temperatures': [{'temperature': outside_temp}],
@@ -58,13 +53,13 @@ climate.on('ready', function() {
 							}, function(k_err) {
 								if (k_err){
 									console.log('Error posting Keen event:');
-									console.log(k_err)
+									console.log(k_err);
 								}
 							});
-		        });
-					}).on('error', function(e) {
-					  console.log('http module error:');
-						console.log(e)
+					  } else {
+					  	console.log('request module error:');
+							console.log(error);
+					  }
 					});
 				} else {
 					console.log('Did not post to Keen - wifi disconnected');
